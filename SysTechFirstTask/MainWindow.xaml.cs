@@ -1,28 +1,45 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+﻿using System.Windows;
+using System.Xml;
 
 namespace SysTechFirstTask
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BrowseXmlFile(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                CheckFileExists = true,
+                Filter = "XML Files (*.xml)|*.xml|All Files(*.*)|*.*",
+                Multiselect = false
+            };
+
+            if (dlg.ShowDialog() != true) { return; }
+
+            XmlDocument XMLdoc = new XmlDocument();
+            try
+            {
+                XMLdoc.Load(dlg.FileName);
+            }
+            catch (XmlException)
+            {
+                MessageBox.Show("The XML file is invalid");
+                return;
+            }
+
+            txtFilePath.Text = dlg.FileName;
+            vXMLViwer.xmlDocument = XMLdoc;
+        }
+
+        private void ClearXmlFile(object sender, RoutedEventArgs e)
+        {
+            txtFilePath.Text = string.Empty;
+            vXMLViwer.xmlDocument = null;
         }
     }
 }
