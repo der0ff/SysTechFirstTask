@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SysTechFirstTask"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="XML Viewer" Height="500" Width="800">
 
     <Grid Margin="10, 10, 10, 10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
@@ -21,12 +22,20 @@
                 <ColumnDefinition Width="100" />
                 <ColumnDefinition Width="5" />
             </Grid.ColumnDefinitions>
-
             <TextBox Name="txtFilePath" IsReadOnly="True" Grid.Column="0" HorizontalAlignment="Stretch" />
             <Button Margin="3, 0, 0, 0" Content="Browse..." Click="BrowseXmlFile" Grid.Column="1"/>
             <Button Margin="3, 0, 0, 0" Content="Clear" Click="ClearXmlFile" Grid.Column="2"/>
         </Grid>
-
+        <Grid Grid.Row="3" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.7*" />
+                <ColumnDefinition Width="0.15*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Name="xPathValue" Grid.Column="0" HorizontalAlignment="Stretch" 
+                     ToolTip="Enter xPath value" Margin="3,5,0,0"/>
+            <Button Margin="3, 5, 3, 0" Content="Run" Click="RunXPath_Click" Grid.Column="1" 
+                    HorizontalAlignment="Stretch"/>
+        </Grid>
         <local:Viewer x:Name="vXMLViwer" Grid.Row="2" />
     </Grid>
 </Window>

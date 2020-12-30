@@ -1,5 +1,8 @@
 ﻿using System.Windows;
 using System.Xml;
+using System;
+using System.Linq;
+using System.Text;
 
 namespace SysTechFirstTask
 {
@@ -40,6 +43,26 @@ namespace SysTechFirstTask
         {
             txtFilePath.Text = string.Empty;
             vXMLViwer.xmlDocument = null;
+        }
+
+        private void RunXPath_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(xPathValue.Text))
+                    throw new System.Exception("xPath is invalid");
+                if (vXMLViwer.xmlDocument==null)
+                    throw new System.Exception("Select XML file");
+                var navigator = vXMLViwer.xmlDocument.CreateNavigator();
+                var result = navigator.Evaluate(xPathValue.Text);
+                MessageBox.Show("Result = " + result.ToString());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+
         }
     }
 }
