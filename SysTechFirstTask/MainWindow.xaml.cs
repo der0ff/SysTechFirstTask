@@ -61,8 +61,6 @@ namespace SysTechFirstTask
             {
                 MessageBox.Show(ex.Message);
             }
-            
-
         }
     }
 }
